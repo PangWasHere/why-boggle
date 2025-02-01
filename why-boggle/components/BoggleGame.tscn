@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://5uiyakxbn8my"]
+
+[ext_resource type="PackedScene" uid="uid://cd2rqj62hpnjc" path="res://components/game_grid.tscn" id="1_fga18"]
+[ext_resource type="Script" path="res://components/boggle_game.gd" id="1_syt22"]
+
+[node name="BoggleGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_syt22")
+
+[node name="SelectedLetters" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameGrid" parent="." instance=ExtResource("1_fga18")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_top = 54.0
+offset_bottom = -72.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -68.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "Submit"
+
+[connection signal="pressed" from="Button" to="." method="_on_word_submit"]

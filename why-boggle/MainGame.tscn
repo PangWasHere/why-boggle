@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bldih7je7nhoc"]
+
+[ext_resource type="PackedScene" uid="uid://5uiyakxbn8my" path="res://components/BoggleGame.tscn" id="1_756o6"]
+
+[node name="MainGame" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoggleGame" parent="Control" instance=ExtResource("1_756o6")]
+layout_mode = 1
+offset_left = 624.0
+offset_top = 57.0
+offset_right = -57.0
+offset_bottom = -67.0

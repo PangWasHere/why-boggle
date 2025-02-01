@@ -16,4 +16,5 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-EventBus="*res://event_bus.gd"
+EventBus="*res://sevices/event_bus.gd"
+WordService="*res://sevices/word_service.gd"

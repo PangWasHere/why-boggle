@@ -23,7 +23,7 @@ func set_grid_y(pos_y):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	custom_minimum_size = Vector2(100, 100)
+	#custom_minimum_size = Vector2(100, 100)
 	set_default_tile_color()
 
 func _on_pressed():

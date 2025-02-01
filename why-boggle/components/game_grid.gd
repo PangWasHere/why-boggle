@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 class_name GameGrid
 # This script contains the properties and functions for the game grid.
@@ -6,19 +6,16 @@ class_name GameGrid
 const HORIZONTAL_MAX:int = 4
 const VERTICAL_MAX:int = 4
 
-var tile_sequence:Array # Contains the letters currently selected
-var previous_button:Button
 
 
 func _ready():
-	EventBus.on_tile_pressed.connect(tile_pressed)
-	create_boggle_grid()
+	pass
 
-# Creates a new boggle grid with new letters
+## Creates a new boggle grid with new letters
 func create_boggle_grid():
 	
 	# Get 16 letters for the grid
-	var letters = GameHelper.get_random_letters(HORIZONTAL_MAX * VERTICAL_MAX)
+	var letters = WordService.get_random_letters(HORIZONTAL_MAX * VERTICAL_MAX)
 	
 	# Create a 16 buttons and assign a letter from the randomised letters 
 	var boggle_buttons:Array
@@ -36,6 +33,7 @@ func create_boggle_grid():
 		button.set_grid_x(x_coor)
 		button.set_grid_y(y_coor)
 		
+		# Assign pseudo-coordinates to check adjacency. See is_adjacent() function below
 		if x_coor < HORIZONTAL_MAX - 1:
 			x_coor += 1
 		else:
@@ -44,55 +42,6 @@ func create_boggle_grid():
 				y_coor += 1
 		
 		$GridContainer.add_child(button)
-		
-	
-	# Position the buttons into a grid
-	
-	pass
-
-
-func add_to_sequence(letter:String) -> void:
-	tile_sequence.append(letter)
-
-func reset_sequence():
-	tile_sequence = []
-	
-	
-# On letter tile press:
-# Check if previous tile is me. If yes, change my color to default.
-# Check if previous button adjacent to me
-# If yes, change my color and save my letter to GAME SESSION
-# If not, reset word sequence and return all buttons to default color
-
-func tile_pressed(tile:LetterTile):
-	
-	var prev_tile:LetterTile
-	
-	if tile_sequence:
-		prev_tile = tile_sequence[-1]
-		if prev_tile == tile:	# Same tile pressed. Change tile color and remove from sequence
-			print("Same tile pressed")
-			tile.set_default_tile_color() 
-			tile_sequence.pop_back()
-		else:
-			if tile in tile_sequence: # Check if tile is already pressed before
-				print("Tile already pressed")
-			else:
-				if is_adjacent(tile, prev_tile):
-					tile_sequence.append(tile)
-					tile.set_selected_tile_color() 
-				else:
-					print("Tiles not adjacent")
-	else:
-		print("Adding first tile...")
-		tile_sequence.append(tile)
-		tile.set_selected_tile_color() 
-		
-	print(tile_sequence.map(get_letter_sequence))
-		
-
-func get_letter_sequence(tile:LetterTile) -> String:
-	return tile.letter
 	
 func is_adjacent(curr_tile:LetterTile, prev_tile:LetterTile) -> bool:
 	var adjacent:bool = false
@@ -103,3 +52,10 @@ func is_adjacent(curr_tile:LetterTile, prev_tile:LetterTile) -> bool:
 				adjacent = true
 
 	return adjacent
+
+func reset_tiles() -> void:
+	var tiles = $GridContainer.get_children()
+	
+	for tile:LetterTile in tiles:
+		tile.set_default_tile_color()
+	
