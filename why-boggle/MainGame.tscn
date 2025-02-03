@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bldih7je7nhoc"]
+[gd_scene load_steps=3 format=3 uid="uid://bldih7je7nhoc"]
 
+[ext_resource type="Theme" uid="uid://cssbjvnd4y80f" path="res://assets/main.theme" id="1_51kng"]
 [ext_resource type="PackedScene" uid="uid://5uiyakxbn8my" path="res://components/BoggleGame.tscn" id="1_756o6"]
 
 [node name="MainGame" type="CanvasLayer"]
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_51kng")
 
 [node name="BoggleGame" parent="Control" instance=ExtResource("1_756o6")]
 layout_mode = 1
